@@ -1,3 +1,4 @@
+import { Manrope } from 'next/font/google';
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -9,7 +10,12 @@ module.exports = {
     './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        grayf4: "#f4f4f4",
+        grayfc: "#fcfcfc",
+      },
+    },
   },
   plugins: [],
 }
