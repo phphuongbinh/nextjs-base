@@ -6,4 +6,7 @@
   body {
     @apply font-normal bg-grayf4;
   }
+  input {
+    font: inherit;
+  }
 }
