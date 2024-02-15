@@ -14,9 +14,13 @@ module.exports = {
       colors: {
         grayf4: "#f4f4f4",
         grayfc: "#fcfcfc",
-        primary: "#11142D",
-        gray80: "#808191"
+        primaryText: "#11142D",
+        gray80: "#808191",
+        primary: "#475BE8"
       },
+      spacing: {
+        c10: "10px"
+      }
     },
   },
   plugins: [],

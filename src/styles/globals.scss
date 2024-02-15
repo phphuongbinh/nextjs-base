@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply font-normal bg-grayf4;
+    @apply font-normal bg-grayf4 text-primaryText;
   }
   input {
     font: inherit;
