@@ -8,7 +8,13 @@ const Topbar = () => {
     <div className="bg-grayfc py-4 px-5 flex items-center justify-between">
       <div className="flex items-center gap-[82px] flex-1">
         <Link href={"/"} className="flex items-center gap-3">
-          <Image src="/logo.png" alt="Yariga" width={173} height={35} />
+          <Image
+            src="/logo.png"
+            alt="Yariga"
+            width={173}
+            height={35}
+            priority={true}
+          />
         </Link>
         <div className="py-[10px] px-[10px] rounded-lg bg-grayf4 flex gap-x-2 items-center flex-[0_1_405px] h-[38px]">
           <IconSearch />
@@ -29,6 +35,10 @@ const Topbar = () => {
             height={40}
             className="rounded-full object-cover"
           />
+          <div className="flex flex-col text-sm">
+            <h4 className="font-semibold">Phan Phuong Binh</h4>
+            <p className="text-gray80">Company Manager</p>
+          </div>
         </div>
       </div>
     </div>
