@@ -27,18 +27,22 @@ const PropertyItem = ({ children }: PropertyItemProps) => {
         <h3 className="font-semibold text-primaryText mt-3 mb-1">
           Metro Jayakarta Hotel & Spa
         </h3>
-        <div className="flex items-center text-gray80 mb-3">
+        <div className="flex items-center text-gray80 mb-3 gap-1">
           <IconLocation />
           <span className=" text-sm">North Carolina, USA</span>
         </div>
         <div className="gap-c10 flex">
           <div className="flex gap-2 items-center">
-            <IconBed />
-            <span>4 Beds</span>
+            <span className="text-gray80">
+              <IconBed />
+            </span>
+            <span className="text-primaryText font-medium">4 Beds</span>
           </div>
           <div className="flex gap-2 items-center">
-            <IconPlus />
-            <span>28M</span>
+            <span className="text-gray80">
+              <IconPlus />
+            </span>
+            <span className="text-primaryText font-medium">28M</span>
           </div>
         </div>
       </div>
