@@ -1,13 +1,6 @@
-import Image from "next/image";
-import Butterfly from "@public/butterfly.jpg";
+import { LayoutMain } from "@/components/layouts";
+import Head from "next/head";
 
 export default function Home() {
-  return (
-    <>
-      <img src="/butterfly.jpg" alt="butterfly" />
-      <div className="relative w-full h-full">
-        <Image src={Butterfly} alt="" fill></Image>
-      </div>
-    </>
-  );
+  return <LayoutMain>home</LayoutMain>;
 }
