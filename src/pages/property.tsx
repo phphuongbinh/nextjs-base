@@ -1,8 +1,24 @@
 import { LayoutMain } from "@/components/layouts";
+import { API_URL } from "@/config";
 import PropertyItem from "@/modules/property/PropertyItem";
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
-const property = () => {
+const PropertyPage = () => {
+  const [data, setData] = useState<any[]>([]);
+  console.log(data);
+
+  useEffect(() => {
+    async function fetchingProperties() {
+      try {
+        const res = await axios.get(`${API_URL}/property`);
+        if (res.status === 200) setData(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchingProperties();
+  }, []);
   return (
     <LayoutMain>
       <div className="flex items-center justify-between mb-5">
@@ -16,10 +32,10 @@ const property = () => {
       <div className="p-5 bg-white rounded-2xl ">
         <div aria-label="filter"></div>
         <div aria-label="list" className="grid grid-cols-2 gap-x-16 gap-y-6">
-          {Array(10)
-            .fill(0)
-            .map((item, index) => (
-              <PropertyItem key={index}></PropertyItem>
+          {data &&
+            data.length > 0 &&
+            data.map((item, index) => (
+              <PropertyItem item={item} key={index}></PropertyItem>
             ))}
         </div>
         <div
@@ -41,4 +57,4 @@ const property = () => {
   );
 };
 
-export default property;
+export default PropertyPage;
