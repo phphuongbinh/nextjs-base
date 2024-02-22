@@ -1,4 +1,4 @@
-export interface PropertyItem {
+export interface PropertyItemData {
   id?: number
   title?: string
   address?: string

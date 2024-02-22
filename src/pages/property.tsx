@@ -1,24 +1,21 @@
 import { LayoutMain } from "@/components/layouts";
 import { API_URL } from "@/config";
 import PropertyItem from "@/modules/property/PropertyItem";
+import { getProperties } from "@/store/Properties.service";
+import { PropertyItemData } from "@/types/property.type";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const PropertyPage = () => {
-  const [data, setData] = useState<any[]>([]);
-  console.log(data);
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["properties"],
+    queryFn: () => getProperties(),
+    refetchOnWindowFocus: false,
+    staleTime: 5 * 60 * 1000,
+  });
+  const properties = data;
 
-  useEffect(() => {
-    async function fetchingProperties() {
-      try {
-        const res = await axios.get(`${API_URL}/property`);
-        if (res.status === 200) setData(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchingProperties();
-  }, []);
   return (
     <LayoutMain>
       <div className="flex items-center justify-between mb-5">
@@ -32,10 +29,10 @@ const PropertyPage = () => {
       <div className="p-5 bg-white rounded-2xl ">
         <div aria-label="filter"></div>
         <div aria-label="list" className="grid grid-cols-2 gap-x-16 gap-y-6">
-          {data &&
-            data.length > 0 &&
-            data.map((item, index) => (
-              <PropertyItem item={item} key={index}></PropertyItem>
+          {properties &&
+            properties.length > 0 &&
+            properties.map((item: PropertyItemData, index: number) => (
+              <PropertyItem item={item} key={item.id}></PropertyItem>
             ))}
         </div>
         <div

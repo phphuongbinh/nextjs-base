@@ -32,3 +32,10 @@
 
 - client-side rendering
 - server-side rendering: SEO
+
+# React query
+
+- refetchOnWindowFocus : khi bấm vào cửa sổ sẽ tự động fetch trang
+- cacheTime, staleTime : Nếu dữ liệu không thay đổi thường xuyên nên tăng lên tránh trường hợp fetch mãi
+- cacheTime > staleTime -> Tối ưu
+<!-- !! Lưu ý: Cần phải tìm hiểu xem dữ liệu có thay đổi thường xuyên hay không? -->

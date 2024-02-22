@@ -1,13 +1,13 @@
 import { IconBed } from "@/components/icons";
 import IconLocation from "@/components/icons/IconLocation";
 import IconPlus from "@/components/icons/IconPlus";
-import { PropertyItem } from "@/types/property.type";
+import { PropertyItemData } from "@/types/property.type";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 interface PropertyItemProps {
-  item: PropertyItem;
+  item: PropertyItemData;
 }
 
 const PropertyItem = ({ item }: PropertyItemProps) => {
