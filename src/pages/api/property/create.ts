@@ -7,7 +7,10 @@ const filePath = path.join(process.cwd(), "data/properties.json")
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
     if(req.method === "POST") {
         const jsonData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-        const newData =     req.body
+        const newData = req.body
+
+        console.log(newData);
+        
         jsonData.push({
             id: jsonData.length + 1,
             ...newData,
