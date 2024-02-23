@@ -8,3 +8,5 @@ export { default as IconPersons } from "./IconPersons";
 export { default as IconProfile } from "./IconProfile";
 export { default as IconLocation } from "./IconLocation";
 export { default as IconBed } from "./IconBed";
+export { default as IconArrowLeft } from "./IconArrowLeft";
+export { default as IconStarYellow } from "./IconStarYellow";
