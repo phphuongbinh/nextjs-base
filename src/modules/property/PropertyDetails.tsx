@@ -6,11 +6,18 @@ import { useQuery } from "@tanstack/react-query";
 import HeadContent from "@/components/HeadContent";
 import {
   IconArrowLeft,
+  IconBancol,
+  IconBathroom,
   IconBed,
+  IconKitchen,
   IconLocation,
+  IconParking,
+  IconSmoking,
   IconStarYellow,
+  IconWifi,
 } from "@/components/icons";
 import Image from "next/image";
+import IconPlus from "@/components/icons/IconPlus";
 
 const PropertyDetails = () => {
   const router = useRouter();
@@ -21,6 +28,8 @@ const PropertyDetails = () => {
     staleTime: 1000 * 60 * 1,
     enabled: !!id,
   });
+  console.log(data);
+
   if (!data || error) return null;
   if (isLoading) return <Spinner></Spinner>;
   return (
@@ -89,7 +98,7 @@ const PropertyDetails = () => {
               </div>
             </div>
           </div>
-          <div>
+          <div className="mb-6">
             <p className="text-lg mb-7">Facillity</p>
             <div className="grid grid-cols-4">
               <div className="flex gap-1">
@@ -97,37 +106,49 @@ const PropertyDetails = () => {
                 <span className="font-medium">{data.info?.beds} Beds</span>
               </div>
               <div className="flex gap-1">
-                <IconBed className="text-gray80" />
-                <span className="font-medium">{data.info?.beds} Beds</span>
+                <IconBathroom className="text-gray80" />
+                <span className="font-medium">Baths</span>
               </div>
               <div className="flex gap-1">
-                <IconBed className="text-gray80" />
-                <span className="font-medium">{data.info?.beds} Beds</span>
+                <IconPlus className="text-gray80" />
+                <span className="font-medium">{data.info?.area}M Area</span>
               </div>
               <div className="flex gap-1">
-                <IconBed className="text-gray80" />
-                <span className="font-medium">{data.info?.beds} Beds</span>
+                <IconSmoking className="text-gray80" />
+                <span className="font-medium">Smoking Area</span>
               </div>
               <div className="flex gap-1">
-                <IconBed className="text-gray80" />
-                <span className="font-medium">{data.info?.beds} Beds</span>
+                <IconKitchen className="text-gray80" />
+                <span className="font-medium">Kitchen</span>
               </div>
               <div className="flex gap-1">
-                <IconBed className="text-gray80" />
-                <span className="font-medium">{data.info?.beds} Beds</span>
+                <IconBancol className="text-gray80" />
+                <span className="font-medium">Bancony</span>
               </div>
               <div className="flex gap-1">
-                <IconBed className="text-gray80" />
-                <span className="font-medium">{data.info?.beds} Beds</span>
+                <IconWifi className="text-gray80" />
+                <span className="font-medium">Wifi</span>
               </div>
               <div className="flex gap-1">
-                <IconBed className="text-gray80" />
-                <span className="font-medium">{data.info?.beds} Beds</span>
+                <IconParking className="text-gray80" />
+                <span className="font-medium">Parking Area</span>
               </div>
             </div>
           </div>
+          <div>
+            <h5 className="text-lg font-medium mb-3">Description</h5>
+            <p className="text-gray80">
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry. Lorem Ipsum has been the industry&apos;s standard dummy
+              text ever since the 1500s, when an unknown printer took a galley
+              of type and scrambled it to make a type specimen book. It has
+              survived not only five centuries, but also the leap into
+              electronic typesetting, remaining essentially unchanged.
+            </p>
+          </div>
         </div>
-        <div>Right</div>
+        <div className="flex flex-col gap-5"></div>
+        <div className="py-5 px-6 rounded-xl shadow">Right</div>
       </div>
     </div>
   );

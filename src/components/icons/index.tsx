@@ -1,3 +1,4 @@
+export { default as IconArrowLeft } from "./IconArrowLeft";
 export { default as IconSearch } from "./IconSearch";
 export { default as IconNotification } from "./IconNotification";
 export { default as IconDashboard } from "./IconDashboard";
@@ -8,5 +9,10 @@ export { default as IconPersons } from "./IconPersons";
 export { default as IconProfile } from "./IconProfile";
 export { default as IconLocation } from "./IconLocation";
 export { default as IconBed } from "./IconBed";
-export { default as IconArrowLeft } from "./IconArrowLeft";
 export { default as IconStarYellow } from "./IconStarYellow";
+export { default as IconKitchen } from "./IconKitchen";
+export { default as IconBathroom } from "./IconBathroom";
+export { default as IconBancol } from "./IconBancol";
+export { default as IconWifi } from "./IconWifi";
+export { default as IconSmoking } from "./IconSmoking";
+export { default as IconParking } from "./IconParking";
