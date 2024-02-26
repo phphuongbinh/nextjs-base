@@ -41,3 +41,5 @@
 <!-- !! Lưu ý: Cần phải tìm hiểu xem dữ liệu có thay đổi thường xuyên hay không? -->
 
 # Thêm dữ liệu với React Query Mutation
+
+# Tối ưu code với tailwind-merge

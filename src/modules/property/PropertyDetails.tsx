@@ -21,7 +21,13 @@ import {
   IconWifi,
 } from "@/components/icons";
 import Image from "next/image";
-import IconPlus from "@/components/icons/IconPlus";
+import { Button } from "@/components/button";
+
+const renderFacilityIcon = (name: string): React.ReactNode => {
+  console.log(name.charAt(0).toUpperCase() + name.slice(1));
+
+  return <></>;
+};
 
 const PropertyDetails = () => {
   const router = useRouter();
@@ -114,6 +120,7 @@ const PropertyDetails = () => {
               {facilities.length > 0 &&
                 facilities.map((item, index) => (
                   <div className="flex gap-1" key={index}>
+                    {renderFacilityIcon(item[0])}
                     <IconBed className="text-gray80" />
                     <span className="font-medium capitalize">
                       {item[1]} {item[0]}
@@ -182,21 +189,33 @@ const PropertyDetails = () => {
               {agent?.properties} Propertis
             </p>
             <div className="flex gap-5 w-full">
-              <button className="rounded bg-primary text-white py-c10  font-semibold flex text-base items-center  gap-2 justify-center flex-1 w-full">
+              <Button
+                size="md"
+                variant="primary"
+                className="rounded-[5px] px-4"
+              >
                 <IconMessage />
                 Message
-              </button>
-              <button className="rounded bg-green2E text-white py-c10 font-semibold flex text-base items-center gap-2 justify-center flex-1 w-full">
+              </Button>
+              <Button
+                size="md"
+                variant="secondary"
+                className="rounded-[5px] px-4"
+              >
                 <IconPhone />
                 Call
-              </button>
+              </Button>
             </div>
           </div>
           <div className="relative">
             <Image className="mb-5" src={mapImage} alt="map"></Image>
-            <button className="rounded bg-primary text-white py-c10 font-semibold  text-base  w-full">
-              Book now
-            </button>
+            <Button
+              className="rounded-[10px] w-full h-12"
+              size="md"
+              variant="primary"
+            >
+              Book Now
+            </Button>
           </div>
         </div>
       </div>
