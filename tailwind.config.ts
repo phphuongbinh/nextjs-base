@@ -17,7 +17,8 @@ module.exports = {
         primaryText: "#11142D",
         gray80: "#808191",
         primary: "#475BE8",
-        secondary: "#DADEFA"
+        secondary: "#DADEFA",
+        green2E: "#2ED480"
       },
       spacing: {
         c10: "10px"

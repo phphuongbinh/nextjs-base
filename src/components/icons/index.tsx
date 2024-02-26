@@ -16,3 +16,5 @@ export { default as IconBancol } from "./IconBancol";
 export { default as IconWifi } from "./IconWifi";
 export { default as IconSmoking } from "./IconSmoking";
 export { default as IconParking } from "./IconParking";
+export { default as IconEllipsis } from "./IconEllipsis";
+export { default as IconPhone } from "./IconPhone";

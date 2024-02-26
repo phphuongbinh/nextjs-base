@@ -4,14 +4,18 @@ import { getProperty } from "@/store/Properties.service";
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
 import HeadContent from "@/components/HeadContent";
+import mapImage from "@public/map.png";
 import {
   IconArrowLeft,
   IconBancol,
   IconBathroom,
   IconBed,
+  IconEllipsis,
   IconKitchen,
   IconLocation,
+  IconMessage,
   IconParking,
+  IconPhone,
   IconSmoking,
   IconStarYellow,
   IconWifi,
@@ -28,7 +32,9 @@ const PropertyDetails = () => {
     staleTime: 1000 * 60 * 1,
     enabled: !!id,
   });
-  console.log(data);
+  const facilities = Object.entries(data?.info || {});
+  const agent = data?.agent;
+  console.log(facilities);
 
   if (!data || error) return null;
   if (isLoading) return <Spinner></Spinner>;
@@ -44,7 +50,7 @@ const PropertyDetails = () => {
       </div>
       <div className="grid grid-cols-[7fr_3fr] gap-5">
         <div>
-          <div className="grid grid-cols-3 gap-5 mb-4">
+          <div className="grid grid-cols-3 grid-rows-[162px_162px] gap-5 mb-4">
             {data.image && data.image[0] && (
               <div className="relative col-span-2 row-span-2">
                 <Image
@@ -63,10 +69,14 @@ const PropertyDetails = () => {
                   <Image
                     src={item}
                     alt="property"
-                    width={500}
-                    height={300}
+                    fill
                     className="rounded-lg object-cover w-full h-full"
                   ></Image>
+                  {index === 1 && (
+                    <div className="absolute inset-0 flex items-center justify-center text-lg font-medium text-white bg-black bg-opacity-50 overlay rounded-lg">
+                      +10
+                    </div>
+                  )}
                 </div>
               ))}
           </div>
@@ -81,12 +91,12 @@ const PropertyDetails = () => {
                 </div>
               </div>
               <div className="flex flex-col gap-2">
-                <div className="flex gap-1 ">
-                  <IconStarYellow />
-                  <IconStarYellow />
-                  <IconStarYellow />
-                  <IconStarYellow />
-                  <IconStarYellow />
+                <div className="flex gap-1">
+                  {Array(Math.floor(data.price || 0))
+                    .fill(0)
+                    .map((item, index) => (
+                      <IconStarYellow key={index} />
+                    ))}
                 </div>
                 <span className="text-base">Price</span>
                 <div className="flex gap-1 items-end">
@@ -101,11 +111,17 @@ const PropertyDetails = () => {
           <div className="mb-6">
             <p className="text-lg mb-7">Facillity</p>
             <div className="grid grid-cols-4">
-              <div className="flex gap-1">
-                <IconBed className="text-gray80" />
-                <span className="font-medium">{data.info?.beds} Beds</span>
-              </div>
-              <div className="flex gap-1">
+              {facilities.length > 0 &&
+                facilities.map((item, index) => (
+                  <div className="flex gap-1" key={index}>
+                    <IconBed className="text-gray80" />
+                    <span className="font-medium capitalize">
+                      {item[1]} {item[0]}
+                    </span>
+                  </div>
+                ))}
+
+              {/* <div className="flex gap-1">
                 <IconBathroom className="text-gray80" />
                 <span className="font-medium">Baths</span>
               </div>
@@ -132,23 +148,57 @@ const PropertyDetails = () => {
               <div className="flex gap-1">
                 <IconParking className="text-gray80" />
                 <span className="font-medium">Parking Area</span>
-              </div>
+              </div> */}
             </div>
           </div>
           <div>
             <h5 className="text-lg font-medium mb-3">Description</h5>
-            <p className="text-gray80">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry&apos;s standard dummy
-              text ever since the 1500s, when an unknown printer took a galley
-              of type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged.
-            </p>
+            <p className="text-gray80">{data.description}</p>
           </div>
         </div>
-        <div className="flex flex-col gap-5"></div>
-        <div className="py-5 px-6 rounded-xl shadow">Right</div>
+        <div className="flex flex-col gap-5">
+          <div className="py-5 px-6 rounded-xl shadow flex flex-col items-center h-[344px]">
+            <button className="ml-auto inline-block mb-2">
+              <IconEllipsis />
+            </button>
+            <div className="relative mb-4">
+              <Image
+                src="https://plus.unsplash.com/premium_photo-1671656349218-5218444643d8?q=80&w=1887&auto=format&fit=crop&ixlib=rb-    4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="avatar"
+                width={500}
+                height={500}
+                className="w-24 h-24 rounded-full object-cover"
+              ></Image>
+            </div>
+            <h4 className="text-lg font-semibold text-primaryText mb-1">
+              {agent?.name}
+            </h4>
+            <p className="text-gray80 mb-2">Agent</p>
+            <div className="flex gap-4 items-center mb-1">
+              <IconLocation />
+              <span className="text-gray80">{agent?.address}</span>
+            </div>
+            <p className="text-base text-primaryText font-semibold mb-4">
+              {agent?.properties} Propertis
+            </p>
+            <div className="flex gap-5 w-full">
+              <button className="rounded bg-primary text-white py-c10  font-semibold flex text-base items-center  gap-2 justify-center flex-1 w-full">
+                <IconMessage />
+                Message
+              </button>
+              <button className="rounded bg-green2E text-white py-c10 font-semibold flex text-base items-center gap-2 justify-center flex-1 w-full">
+                <IconPhone />
+                Call
+              </button>
+            </div>
+          </div>
+          <div className="relative">
+            <Image className="mb-5" src={mapImage} alt="map"></Image>
+            <button className="rounded bg-primary text-white py-c10 font-semibold  text-base  w-full">
+              Book now
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
