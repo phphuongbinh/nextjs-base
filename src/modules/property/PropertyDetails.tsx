@@ -22,9 +22,11 @@ import {
 } from "@/components/icons";
 import Image from "next/image";
 import { Button } from "@/components/button";
+import capitalizeStr from "@/utils/toCapitalize";
 
 const renderFacilityIcon = (name: string): React.ReactNode => {
-  console.log(name.charAt(0).toUpperCase() + name.slice(1));
+  const newName = capitalizeStr(name.replace(/ /g, ""));
+  console.log(newName);
 
   return <></>;
 };
