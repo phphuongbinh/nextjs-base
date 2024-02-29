@@ -1,6 +1,6 @@
 import React from "react";
 
-const IconBancol = (props: JSX.IntrinsicElements["svg"]) => {
+const IconBalcony = (props: JSX.IntrinsicElements["svg"]) => {
   return (
     <svg
       width="18"
@@ -18,4 +18,4 @@ const IconBancol = (props: JSX.IntrinsicElements["svg"]) => {
   );
 };
 
-export default IconBancol;
+export default IconBalcony;

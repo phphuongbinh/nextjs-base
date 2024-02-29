@@ -1,20 +1,9 @@
 import { LayoutMain } from "@/components/layouts";
-import { API_URL } from "@/config";
-import PropertyItem from "@/modules/property/PropertyItem";
-import { getProperties } from "@/store/Properties.service";
-import { PropertyItemData } from "@/types/property.type";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import PropertyList from "@/modules/property/PropertyList";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 const PropertyPage = () => {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["properties"],
-    queryFn: () => getProperties(),
-  });
-  const properties = data;
-
   return (
     <LayoutMain>
       <div className="flex items-center justify-between mb-5">
@@ -30,13 +19,8 @@ const PropertyPage = () => {
       </div>
       <div className="p-5 bg-white rounded-2xl ">
         <div aria-label="filter"></div>
-        <div aria-label="list" className="grid grid-cols-2 gap-x-16 gap-y-6">
-          {properties &&
-            properties.length > 0 &&
-            properties.map((item: PropertyItemData, index: number) => (
-              <PropertyItem item={item} key={item.id}></PropertyItem>
-            ))}
-        </div>
+        <PropertyList></PropertyList>
+
         <div
           aria-label="pagination"
           className="flex items-center justify-between mt-6"

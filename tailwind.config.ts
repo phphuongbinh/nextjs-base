@@ -18,6 +18,7 @@ module.exports = {
         gray80: "#808191",
         primary: "#475BE8",
         secondary: "#2ED480",
+        purpleda: "#DADEFA",
       },
       spacing: {
         c10: "10px"

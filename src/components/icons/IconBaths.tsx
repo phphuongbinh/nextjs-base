@@ -1,6 +1,6 @@
 import React from "react";
 
-const IconBathroom = (props: JSX.IntrinsicElements["svg"]) => {
+const IconBaths = (props: JSX.IntrinsicElements["svg"]) => {
   return (
     <svg
       width="18"
@@ -18,4 +18,4 @@ const IconBathroom = (props: JSX.IntrinsicElements["svg"]) => {
   );
 };
 
-export default IconBathroom;
+export default IconBaths;

@@ -2,7 +2,7 @@ export interface PropertyItemData {
   id?: number
   title?: string
   address?: string
-  info?: PropertyInfo
+  facility?: PropertyFacility
   status?: string
   type?: string
   price?: number
@@ -14,7 +14,7 @@ export interface PropertyItemData {
   agent?: PropertyAgent
 }
 
-export interface PropertyInfo{
+export interface PropertyFacility{
   beds?: number
   baths?: number
   area?: string

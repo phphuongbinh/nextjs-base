@@ -1,6 +1,6 @@
 import React from "react";
 
-const IconParking = (props: JSX.IntrinsicElements["svg"]) => {
+const IconParkingArea = (props: JSX.IntrinsicElements["svg"]) => {
   return (
     <svg
       width="18"
@@ -22,4 +22,4 @@ const IconParking = (props: JSX.IntrinsicElements["svg"]) => {
   );
 };
 
-export default IconParking;
+export default IconParkingArea;

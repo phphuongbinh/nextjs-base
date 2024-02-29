@@ -7,28 +7,32 @@ import HeadContent from "@/components/HeadContent";
 import mapImage from "@public/map.png";
 import {
   IconArrowLeft,
-  IconBancol,
-  IconBathroom,
-  IconBed,
   IconEllipsis,
-  IconKitchen,
   IconLocation,
   IconMessage,
-  IconParking,
   IconPhone,
-  IconSmoking,
   IconStarYellow,
-  IconWifi,
 } from "@/components/icons";
 import Image from "next/image";
 import { Button } from "@/components/button";
 import capitalizeStr from "@/utils/toCapitalize";
+import dynamic from "next/dynamic";
+import Link from "next/link";
 
-const renderFacilityIcon = (name: string): React.ReactNode => {
-  const newName = capitalizeStr(name.replace(/ /g, ""));
-  console.log(newName);
-
-  return <></>;
+const renderFacilityIcon = (item: any): React.ReactNode => {
+  const [name, count] = item;
+  const newName = capitalizeStr(name, "-").replace(/ /g, "");
+  const Icon = dynamic(() => import(`../../components/icons/Icon${newName}`));
+  return (
+    <>
+      <span className="text-gray80">
+        <Icon></Icon>
+      </span>
+      <span className="text-sm font-medium ">
+        {count} {newName}
+      </span>
+    </>
+  );
 };
 
 const PropertyDetails = () => {
@@ -40,9 +44,8 @@ const PropertyDetails = () => {
     staleTime: 1000 * 60 * 1,
     enabled: !!id,
   });
-  const facilities = Object.entries(data?.info || {});
+  const facilities = Object.entries(data?.facility || {});
   const agent = data?.agent;
-  console.log(facilities);
 
   if (!data || error) return null;
   if (isLoading) return <Spinner></Spinner>;
@@ -53,7 +56,9 @@ const PropertyDetails = () => {
         image={data.image && data.image[0]}
       ></HeadContent>
       <div className="flex items-center gap-6 mb-6">
-        <IconArrowLeft />
+        <Link href="/property">
+          <IconArrowLeft />
+        </Link>
         <h2 className="text-xl font-semibold">Details</h2>
       </div>
       <div className="grid grid-cols-[7fr_3fr] gap-5">
@@ -122,11 +127,7 @@ const PropertyDetails = () => {
               {facilities.length > 0 &&
                 facilities.map((item, index) => (
                   <div className="flex gap-1" key={index}>
-                    {renderFacilityIcon(item[0])}
-                    <IconBed className="text-gray80" />
-                    <span className="font-medium capitalize">
-                      {item[1]} {item[0]}
-                    </span>
+                    {renderFacilityIcon(item)}
                   </div>
                 ))}
 
@@ -188,7 +189,7 @@ const PropertyDetails = () => {
               <span className="text-gray80">{agent?.address}</span>
             </div>
             <p className="text-base text-primaryText font-semibold mb-4">
-              {agent?.properties} Propertis
+              {agent?.properties} Properties
             </p>
             <div className="flex gap-5 w-full">
               <Button
