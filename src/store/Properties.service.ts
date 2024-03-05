@@ -32,7 +32,7 @@ export async function getProperties() : Promise<PropertyItemData[] | null | unde
     try {
         const response = await axios.get(`${API_URL}/property`);
         if(response.status === 200) {
-            return response.data
+            return response.data.properties
         }
         return []
     } catch (error) {
