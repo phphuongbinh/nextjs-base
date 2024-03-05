@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropertyItem, {
   PropertyItemLoading,
 } from "@/modules/property/PropertyItem";
@@ -8,16 +8,34 @@ import { useQuery } from "@tanstack/react-query";
 import { IconSearch } from "@/components/icons";
 import { Dropdown } from "@/components/dropdown";
 import { statusData } from "@/constants/general.const";
+import { TFilter } from "@/types/general.types";
+import { debounce } from "lodash";
 
 const PropertyList = () => {
+  const [filter, setFilter] = useState<TFilter>({
+    text: "",
+    country: "",
+    state: "",
+    status: "",
+    type: "",
+  });
   const { data, isLoading, error } = useQuery({
     queryKey: ["properties"],
-    queryFn: () => getProperties(),
+    queryFn: () => getProperties({ text: filter.text }),
+    staleTime: 1000 * 60 * 1,
   });
   const properties = data;
-  console.log(properties);
+  const handleFilterProperty = debounce(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFilter({
+        ...filter,
+        text: e.target.value,
+      });
+    },
+    50
+  );
 
-  if (error || properties?.length === 0) return null;
+  if (error) return null;
   if (isLoading)
     return (
       <div aria-label="list" className="grid grid-cols-2 gap-x-16 gap-y-6">
@@ -37,6 +55,7 @@ const PropertyList = () => {
             type="text"
             className="text-xs font-medium bg-transparent w-full outline-none"
             placeholder="Enter an address, city or Zip code"
+            onChange={handleFilterProperty}
           />
         </div>
         <Dropdown data={statusData}></Dropdown>
