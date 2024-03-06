@@ -8,10 +8,13 @@ import { useQuery } from "@tanstack/react-query";
 import { IconSearch } from "@/components/icons";
 import { Dropdown } from "@/components/dropdown";
 import { statusData } from "@/constants/general.const";
-import { TFilter } from "@/types/general.types";
+import { TFilter, TPropertyStatus } from "@/types/general.types";
 import { debounce } from "lodash";
 
 const PropertyList = () => {
+  const [selected, setSelected] = useState({
+    status: "Any status",
+  });
   const [filter, setFilter] = useState<TFilter>({
     text: "",
     country: "",
@@ -20,9 +23,9 @@ const PropertyList = () => {
     type: "",
   });
   const { data, isLoading, error } = useQuery({
-    queryKey: ["properties"],
-    queryFn: () => getProperties({ text: filter.text }),
-    staleTime: 1000 * 60 * 1,
+    queryKey: ["properties", filter.text, filter.status],
+    queryFn: () => getProperties({ text: filter.text, status: filter.status }),
+    staleTime: 1000 * 60 * 5,
   });
   const properties = data;
   const handleFilterProperty = debounce(
@@ -32,8 +35,19 @@ const PropertyList = () => {
         text: e.target.value,
       });
     },
-    50
+    1000
   );
+  const handleFilterByStatus = (value: TPropertyStatus) => {
+    setFilter({
+      ...filter,
+      status: value,
+    });
+    const foundStatus = statusData.find((item) => item.value === value);
+    setSelected({
+      ...selected,
+      status: value ? foundStatus?.label || "" : "Any status",
+    });
+  };
 
   if (error) return null;
   if (isLoading)
@@ -58,7 +72,11 @@ const PropertyList = () => {
             onChange={handleFilterProperty}
           />
         </div>
-        <Dropdown data={statusData}></Dropdown>
+        <Dropdown
+          selected={selected.status}
+          data={statusData}
+          onClick={handleFilterByStatus}
+        ></Dropdown>
         <Dropdown selected="Any type"></Dropdown>
         <Dropdown selected="All Countries"></Dropdown>
         <Dropdown selected="All States"></Dropdown>

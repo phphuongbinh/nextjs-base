@@ -9,9 +9,11 @@ export type TDropdownData = {
     label: string
 }
 
+export type TPropertyStatus = "" | "rent" | "sale"
+
 export type TFilter = {
     text?: string;
-    status?: string;
+    status: TPropertyStatus;
     country?: string;
     type?: string;
     state?: string;

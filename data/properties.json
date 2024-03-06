@@ -145,7 +145,7 @@
       "wifi": true,
       "parking-area": true
     },
-    "status": "sale",
+    "status": "rent",
     "type": "apartments",
     "price": 7500,
     "image": [
