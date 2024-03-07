@@ -55,3 +55,30 @@ export const statusData: TDropdownData[] = [
     value: "rent",
   },
 ];
+
+export const typeData: TDropdownData[] = [
+  {
+    label: "Any type",
+    value: "",
+  },
+  {
+    label: "Apartments",
+    value: "apartment",
+  },
+  {
+    label: "Houses",
+    value: "house",
+  },
+  {
+    label: "Commercial",
+    value: "commercial",
+  },
+  {
+    label: "Garages",
+    value: "garage",
+  },
+  {
+    label: "Lost",
+    value: "lot",
+  },
+];

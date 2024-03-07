@@ -7,13 +7,18 @@ import { getProperties } from "@/store/Properties.service";
 import { useQuery } from "@tanstack/react-query";
 import { IconSearch } from "@/components/icons";
 import { Dropdown } from "@/components/dropdown";
-import { statusData } from "@/constants/general.const";
-import { TFilter, TPropertyStatus } from "@/types/general.types";
+import { statusData, typeData } from "@/constants/general.const";
+import {
+  TFilter,
+  TPropertyStatusData,
+  TPropertyTypeData,
+} from "@/types/general.types";
 import { debounce } from "lodash";
 
 const PropertyList = () => {
   const [selected, setSelected] = useState({
     status: "Any status",
+    type: "Any type",
   });
   const [filter, setFilter] = useState<TFilter>({
     text: "",
@@ -23,8 +28,13 @@ const PropertyList = () => {
     type: "",
   });
   const { data, isLoading, error } = useQuery({
-    queryKey: ["properties", filter.text, filter.status],
-    queryFn: () => getProperties({ text: filter.text, status: filter.status }),
+    queryKey: ["properties", filter.text, filter.status, filter.type],
+    queryFn: () =>
+      getProperties({
+        text: filter.text,
+        status: filter.status,
+        type: filter.type,
+      }),
     staleTime: 1000 * 60 * 5,
   });
   const properties = data;
@@ -37,7 +47,7 @@ const PropertyList = () => {
     },
     1000
   );
-  const handleFilterByStatus = (value: TPropertyStatus) => {
+  const handleFilterByStatus = (value: TPropertyStatusData["value"]) => {
     setFilter({
       ...filter,
       status: value,
@@ -46,6 +56,18 @@ const PropertyList = () => {
     setSelected({
       ...selected,
       status: value ? foundStatus?.label || "" : "Any status",
+    });
+  };
+
+  const handleFilterByType = (value: TPropertyTypeData["value"]) => {
+    setFilter({
+      ...filter,
+      type: value,
+    });
+    const foundType = typeData.find((item) => item.value === value);
+    setSelected({
+      ...selected,
+      type: value ? foundType?.label || "" : "Any type",
     });
   };
 
@@ -77,7 +99,11 @@ const PropertyList = () => {
           data={statusData}
           onClick={handleFilterByStatus}
         ></Dropdown>
-        <Dropdown selected="Any type"></Dropdown>
+        <Dropdown
+          onClick={handleFilterByType}
+          data={typeData}
+          selected="Any type"
+        ></Dropdown>
         <Dropdown selected="All Countries"></Dropdown>
         <Dropdown selected="All States"></Dropdown>
         <button className="p-2.5 rounded-lg gap-2.5 text-gray80 font-medium text-xs flex items-center bg-grayf7">

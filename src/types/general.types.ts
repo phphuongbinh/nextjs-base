@@ -9,12 +9,19 @@ export type TDropdownData = {
     label: string
 }
 
-export type TPropertyStatus = "" | "rent" | "sale"
+export type TPropertyStatusData = Omit<TDropdownData, "value"> & {
+    value: "" | "sale" | "rent"
+}
+
+export type TPropertyTypeData = Omit<TDropdownData, "value"> & {
+    value: "" | "apartment" | "house" | "commercial" | "garage" | "lot"
+}
+
 
 export type TFilter = {
     text?: string;
-    status: TPropertyStatus;
+    status: TPropertyStatusData["value"];
     country?: string;
-    type?: string;
+    type?: TPropertyTypeData["value"];
     state?: string;
 }
