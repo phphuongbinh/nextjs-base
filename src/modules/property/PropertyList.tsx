@@ -19,6 +19,7 @@ const PropertyList = () => {
   const [selected, setSelected] = useState({
     status: "Any status",
     type: "Any type",
+    country: "Any Country",
   });
   const [filter, setFilter] = useState<TFilter>({
     text: "",
@@ -28,12 +29,19 @@ const PropertyList = () => {
     type: "",
   });
   const { data, isLoading, error } = useQuery({
-    queryKey: ["properties", filter.text, filter.status, filter.type],
+    queryKey: [
+      "properties",
+      filter.text,
+      filter.status,
+      filter.type,
+      filter.country,
+    ],
     queryFn: () =>
       getProperties({
         text: filter.text,
         status: filter.status,
         type: filter.type,
+        country: filter.country,
       }),
     staleTime: 1000 * 60 * 5,
   });
