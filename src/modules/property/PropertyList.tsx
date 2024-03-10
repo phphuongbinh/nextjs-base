@@ -7,7 +7,7 @@ import { getProperties } from "@/store/Properties.service";
 import { useQuery } from "@tanstack/react-query";
 import { IconSearch } from "@/components/icons";
 import { Dropdown } from "@/components/dropdown";
-import { statusData, typeData } from "@/constants/general.const";
+import { propertyStatusData, typeData } from "@/constants/general.const";
 import {
   TFilter,
   TPropertyStatusData,
@@ -60,7 +60,7 @@ const PropertyList = () => {
       ...filter,
       status: value,
     });
-    const foundStatus = statusData.find((item) => item.value === value);
+    const foundStatus = propertyStatusData.find((item) => item.value === value);
     setSelected({
       ...selected,
       status: value ? foundStatus?.label || "" : "Any status",
@@ -104,7 +104,7 @@ const PropertyList = () => {
         </div>
         <Dropdown
           selected={selected.status}
-          data={statusData}
+          data={propertyStatusData}
           onClick={handleFilterByStatus}
         ></Dropdown>
         <Dropdown
