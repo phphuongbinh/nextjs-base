@@ -7,7 +7,11 @@ import { getProperties } from "@/store/Properties.service";
 import { useQuery } from "@tanstack/react-query";
 import { IconSearch } from "@/components/icons";
 import { Dropdown } from "@/components/dropdown";
-import { propertyStatusData, typeData } from "@/constants/general.const";
+import {
+  ITEMS_PER_PAGE,
+  propertyStatusData,
+  typeData,
+} from "@/constants/general.const";
 import {
   TFilter,
   TPropertyStatusData,
@@ -16,6 +20,7 @@ import {
 import { debounce } from "lodash";
 
 const PropertyList = () => {
+  const [page, setPage] = useState<number>(1);
   const [selected, setSelected] = useState({
     status: "Any status",
     type: "Any type",
@@ -35,6 +40,7 @@ const PropertyList = () => {
       filter.status,
       filter.type,
       filter.country,
+      page,
     ],
     queryFn: () =>
       getProperties({
@@ -42,10 +48,14 @@ const PropertyList = () => {
         status: filter.status,
         type: filter.type,
         country: filter.country,
+        offset: (page - 1) * ITEMS_PER_PAGE,
+        limit: ITEMS_PER_PAGE,
       }),
     staleTime: 1000 * 60 * 5,
   });
-  const properties = data;
+  if (!data) return null;
+  const properties = data?.properties;
+
   const handleFilterProperty = debounce(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setFilter({
@@ -153,12 +163,16 @@ const PropertyList = () => {
       >
         <div>Showing 1 to 10 Propertys</div>
         <div className="flex items-center gap-c10">
-          <button className="w-9 h-9 rounded-lg bg-primary text-white flex items-center justify-center">
-            1
-          </button>
-          <button className="w-9 h-9 rounded-lg text-gray80 flex items-center justify-center">
-            2
-          </button>
+          {Array(5)
+            .fill(0)
+            .map((item, index) => (
+              <button
+                key={index}
+                className="w-9 h-9 rounded-lg e flex items-center justify-center"
+              >
+                {index + 1}
+              </button>
+            ))}
         </div>
       </div>
     </div>

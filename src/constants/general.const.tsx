@@ -86,3 +86,5 @@ export const typeData: TDropdownData[] = [
     value: "lot",
   },
 ];
+
+export const ITEMS_PER_PAGE = 2;
