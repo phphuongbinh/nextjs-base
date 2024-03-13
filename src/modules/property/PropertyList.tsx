@@ -18,6 +18,7 @@ import {
   TPropertyTypeData,
 } from "@/types/general.types";
 import { debounce } from "lodash";
+import { twMerge } from "tailwind-merge";
 
 const PropertyList = () => {
   const [page, setPage] = useState<number>(1);
@@ -55,6 +56,8 @@ const PropertyList = () => {
   });
   if (!data) return null;
   const properties = data?.properties;
+  const total = data.total || 0;
+  const total_pages = Math.ceil(total / ITEMS_PER_PAGE);
 
   const handleFilterProperty = debounce(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -161,14 +164,23 @@ const PropertyList = () => {
         aria-label="pagination"
         className="flex items-center justify-between mt-6"
       >
-        <div>Showing 1 to 10 Propertys</div>
+        <div>
+          Showing {ITEMS_PER_PAGE * page - 1} to {page * ITEMS_PER_PAGE}{" "}
+          Propertys
+        </div>
         <div className="flex items-center gap-c10">
-          {Array(5)
+          {Array(total_pages)
             .fill(0)
             .map((item, index) => (
               <button
                 key={index}
-                className="w-9 h-9 rounded-lg e flex items-center justify-center"
+                className={twMerge(
+                  "w-9 h-9 rounded-lg e flex items-center justify-center",
+                  page === index + 1
+                    ? "bg-primary text-white pointer-events-none"
+                    : ""
+                )}
+                onClick={() => setPage(index + 1)}
               >
                 {index + 1}
               </button>
